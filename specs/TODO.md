@@ -40,12 +40,12 @@
 ## Phase 2: UI & Vibe (Design Focus)
 **Objectif :** L'expérience utilisateur finale (Glassmorphism & Vibe Echo).
 
-- [ ] **Layout Shell**
-    - [ ] Créer `components/layout/AppShell.tsx` (Sidebar/Nav simplifiée mobile-first).
-    - [ ] Appliquer bg sombre + `globals.css` (Glassmorphism base classes).
-- [ ] **Dashboard Home**
-    - [ ] Afficher liste des playlists (Grid/List toggle).
-    - [ ] Composant `PlaylistCard` avec image, titre, et hover effect glass.
+- [x] **Layout Shell**
+    - [x] Créer `components/layout/AppShell.tsx` (Sidebar/Nav simplifiée mobile-first).
+    - [x] Appliquer bg sombre + `globals.css` (Glassmorphism base classes).
+- [x] **Dashboard Home**
+    - [x] Afficher liste des playlists (Grid/List toggle).
+    - [x] Composant `PlaylistCard` avec image, titre, et hover effect glass.
 - [ ] **Shuffle UI Flow**
     - [ ] Page détail playlist ou Modal de sélection.
     - [ ] Bouton "Generate True Shuffle" avec état de loading (spinner/progress).

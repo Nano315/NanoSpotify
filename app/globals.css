@@ -1,3 +1,42 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-background: #050505;
+  --color-foreground: #ffffff;
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+}
+
+:root {
+  --background: #050505;
+  --foreground: #ffffff;
+  
+  /* Neon Green */
+  --primary: #1ed760;
+  --primary-glow: rgba(30, 215, 96, 0.4);
+  
+  /* Glass Surfaces */
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-surface: rgba(255, 255, 255, 0.03);
+  --glass-highlight: rgba(255, 255, 255, 0.1);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Custom Utilities using standard CSS and @apply */
+@layer components {
+  .glass-panel {
+    @apply backdrop-blur-md bg-white/[0.03] border border-white/10;
+  }
+  
+  .glass-card {
+    @apply backdrop-blur-md bg-white/[0.03] border border-white/10 rounded-xl transition-all duration-300 hover:bg-white/[0.08] hover:border-white/20 hover:shadow-[0_0_20px_rgba(30,215,96,0.1)];
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px var(--primary-glow);
+  }
+}
