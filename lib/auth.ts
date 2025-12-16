@@ -98,7 +98,7 @@ export const authOptions: NextAuthOptions = {
         session.user.email = (token.user as any).email;
       }
       
-      console.log("Session User:", session.user);
+      //console.log("Session User:", session.user);
       return session;
     },
   },

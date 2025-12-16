@@ -22,20 +22,20 @@
 **Objectif :** La logique métier fonctionne (Shuffling & Playlist creation) sans UI complexe.
 
 - [ ] **Spotify Client Helper**
-    - [ ] Créer `lib/spotify.ts` pour instancier `spotify-web-api-node` avec le token user.
-    - [ ] Créer hook `useSpotify` pour accès facile côté client/composants.
+    - [x] Créer `lib/spotify.ts` pour instancier `spotify-web-api-node` avec le token user.
+    - [x] Créer hook `useSpotify` pour accès facile côté client/composants.
 - [ ] **Fetch Playlists**
-    - [ ] Créer Server Action ou API Route pour lister playlists utilisateur.
+    - [x] Créer Server Action ou API Route pour lister playlists utilisateur.
     - [ ] Configurer React Query : `usePlaylists`.
-- [ ] **Algo True Shuffle**
-    - [ ] Implémenter `lib/algorithms/fisher-yates.ts` (Fisher-Yates Shuffle pur).
+- [x] **Algo True Shuffle**
+    - [x] Implémenter `lib/algorithms/fisher-yates.ts` (Fisher-Yates Shuffle pur).
     - [ ] Écrire test unitaire simple pour vérifier l'aléatoire (optionnel mais recommandé).
-- [ ] **Playlist Mutation (The Engine)**
-    - [ ] Créer fonction `createTrueShufflePlaylist(sourceId)`.
-    - [ ] Étape 1 : Fetch tous les tracks de la source (pagination !).
-    - [ ] Étape 2 : Mélanger tracks (Fisher-Yates).
-    - [ ] Étape 3 : Créer nouvelle playlist `[Nom] - Alter`.
-    - [ ] Étape 4 : Ajouter tracks à la nouvelle playlist (par batch de 100).
+- [x] **Playlist Mutation (The Engine)**
+    - [x] Créer fonction `createTrueShufflePlaylist(sourceId)`.
+    - [x] Étape 1 : Fetch tous les tracks de la source (pagination !).
+    - [x] Étape 2 : Mélanger tracks (Fisher-Yates).
+    - [x] Étape 3 : Créer nouvelle playlist `[Nom] - Alter`.
+    - [x] Étape 4 : Ajouter tracks à la nouvelle playlist (par batch de 100).
 
 ## Phase 2: UI & Vibe (Design Focus)
 **Objectif :** L'expérience utilisateur finale (Glassmorphism & Vibe Echo).
