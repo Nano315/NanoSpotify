@@ -91,6 +91,14 @@ export const authOptions: NextAuthOptions = {
       session.user.accessToken = token.accessToken;
       session.user.refreshToken = token.refreshToken;
       session.error = token.error;
+      
+      if (token.user) {
+        session.user.name = (token.user as any).name;
+        session.user.image = (token.user as any).image;
+        session.user.email = (token.user as any).email;
+      }
+      
+      console.log("Session User:", session.user);
       return session;
     },
   },

@@ -9,7 +9,7 @@ export default function LoginButton() {
     return (
       <div className="flex flex-col items-center gap-4">
         <p className="text-white/80">
-          Connecté en tant que <span className="font-bold text-green-400">{session.user?.email}</span>
+          Connecté en tant que <span className="font-bold text-green-400">{session.user?.name || session.user?.email}</span>
         </p>
         <button
           onClick={() => signOut()}
