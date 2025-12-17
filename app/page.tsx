@@ -1,6 +1,6 @@
 import LoginButton from "@/components/LoginButton";
 import { getUserPlaylists } from "@/actions/spotify";
-import PlaylistCard from "@/components/PlaylistCard";
+import PlaylistGrid from "@/components/PlaylistGrid";
 
 export default async function Home() {
   const playlists = await getUserPlaylists();
@@ -16,11 +16,7 @@ export default async function Home() {
         {playlists.length > 0 ? (
             <>
                 <h2 className="mb-6 text-2xl font-bold text-white tracking-tight">Vos Playlists</h2>
-                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-                {playlists.map((playlist: { id: string; name: string; image: string | null; tracks: number }, index: number) => (
-                    <PlaylistCard key={playlist.id} playlist={playlist} index={index} />
-                ))}
-                </div>
+                <PlaylistGrid playlists={playlists} />
             </>
         ) : (
             <div className="text-center mt-20">

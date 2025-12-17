@@ -10,12 +10,17 @@ interface Playlist {
   tracks: number;
 }
 
+const variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
+
 export default function PlaylistCard({ playlist, index }: { playlist: Playlist; index: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.05, duration: 0.4 }}
+      variants={variants}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
       className="glass-card group relative flex flex-col overflow-hidden p-4"
     >
       <div className="relative mb-4 aspect-square w-full overflow-hidden rounded-lg bg-neutral-900 shadow-xl">
@@ -26,8 +31,8 @@ export default function PlaylistCard({ playlist, index }: { playlist: Playlist; 
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-white/5">
-            <span className="text-4xl">🎵</span>
+          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600">
+            <span className="text-4xl">❤️</span>
           </div>
         )}
         

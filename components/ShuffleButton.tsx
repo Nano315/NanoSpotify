@@ -3,6 +3,8 @@
 import { createShufflePlaylist } from "@/actions/shuffle";
 import { useState } from "react";
 import { Shuffle, Loader2 } from "lucide-react";
+import confetti from "canvas-confetti";
+import { toast } from "sonner";
 
 interface ShuffleButtonProps {
   playlistId: string;
@@ -17,12 +19,18 @@ export default function ShuffleButton({ playlistId, sourceName }: ShuffleButtonP
     try {
       const result = await createShufflePlaylist(playlistId, sourceName);
       if (result.success) {
-        alert("Playlist créée avec succès !"); // Simple native alert for MVP
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#22c55e', '#ffffff'] // Green and White
+        });
+        toast.success("Playlist mélangée avec succès !");
       } else {
-        alert("Erreur : " + result.message);
+        toast.error("Erreur : " + result.message);
       }
     } catch (e) {
-      alert("Une erreur est survenue.");
+      toast.error("Une erreur est survenue.");
     } finally {
       setIsLoading(false);
     }
