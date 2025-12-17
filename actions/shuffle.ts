@@ -125,7 +125,7 @@ export async function createShufflePlaylist(sourcePlaylistId: string, sourceName
        
        // REPLACE first 100
        const firstChunk = shuffledTracks.slice(0, 100);
-       await callSpotify("replaceTracksInPlaylist", () => spotify.replaceTracksInPlaylist(targetPlaylistId, firstChunk));
+       await callSpotify("replaceTracksInPlaylist", () => spotify.replaceTracksInPlaylist(targetPlaylistId!, firstChunk));
 
        // ADD remaining
        if (shuffledTracks.length > 100) {
@@ -134,7 +134,7 @@ export async function createShufflePlaylist(sourcePlaylistId: string, sourceName
           for (let i = 0; i < remainingTracks.length; i += chunkSize) {
             const chunk = remainingTracks.slice(i, i + chunkSize);
             console.log(`[Shuffle] Adding chunk ${i / chunkSize + 1}...`);
-            await callSpotify("addTracksToPlaylist", () => spotify.addTracksToPlaylist(targetPlaylistId, chunk));
+            await callSpotify("addTracksToPlaylist", () => spotify.addTracksToPlaylist(targetPlaylistId!, chunk));
           }
        }
 
@@ -153,7 +153,7 @@ export async function createShufflePlaylist(sourcePlaylistId: string, sourceName
       for (let i = 0; i < shuffledTracks.length; i += chunkSize) {
         const chunk = shuffledTracks.slice(i, i + chunkSize);
         console.log(`[Shuffle] Adding chunk ${i / chunkSize + 1} to new playlist...`);
-        await callSpotify("addTracksToPlaylist", () => spotify.addTracksToPlaylist(targetPlaylistId, chunk));
+        await callSpotify("addTracksToPlaylist", () => spotify.addTracksToPlaylist(targetPlaylistId!, chunk));
       }
     }
 
