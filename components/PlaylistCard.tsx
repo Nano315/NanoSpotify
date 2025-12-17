@@ -37,8 +37,8 @@ export default function PlaylistCard({ playlist, index }: { playlist: Playlist; 
         )}
         
         {/* Overlay Action Button */}
-        <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 backdrop-blur-[2px] transition-all duration-300 group-hover:opacity-100">
-             <div className="scale-0 transition-transform duration-300 group-hover:scale-100">
+        <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-100 backdrop-blur-[2px] transition-all duration-300 md:opacity-0 md:group-hover:opacity-100">
+             <div className="scale-100 transition-transform duration-300 md:scale-0 md:group-hover:scale-100">
                 <ShuffleButton playlistId={playlist.id} sourceName={playlist.name} />
              </div>
         </div>
