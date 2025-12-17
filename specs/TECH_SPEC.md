@@ -29,7 +29,7 @@ L'authentification est le point névralgique.
 4.  **Scopes** :
     *   `user-read-private` `user-read-email` (Auth)
     *   `playlist-read-private` `playlist-modify-public` `playlist-modify-private` (Gestion Playlists)
-    *   `user-read-recently-played` (Vibe Echo)
+
 
 ---
 
@@ -45,7 +45,7 @@ L'authentification est le point névralgique.
 │   ├── (dashboard)/            # Route Group protégé (Layout principal avec Nav)
 │   │   ├── page.tsx            # Home (Dashboard)
 │   │   ├── library/            # Sélection de playlist pour Shuffle
-│   │   └── vibe/               # Page Vibe Echo
+
 │   ├── layout.tsx              # Root Layout (Providers: Auth, Query)
 │   └── globals.css             # Tailwind imports & Custom Variables
 ├── components/

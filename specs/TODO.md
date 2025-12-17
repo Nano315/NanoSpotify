@@ -13,7 +13,7 @@
     - [ ] Créer `.env.local` et ajouter variables (SPOTIFY_CLIENT_ID, SECRET, NEXTAUTH_SECRET).
 - [ ] **Authentification (NextAuth)**
     - [ ] Créer `lib/auth.ts` (ou config dans `api/auth/[...nextauth]/route.ts`).
-    - [ ] Implémenter Provider Spotify avec scopes : `playlist-read-private`, `playlist-modify-public`, `user-read-recently-played`, etc.
+    - [ ] Implémenter Provider Spotify avec scopes : `playlist-read-private`, `playlist-modify-public`, etc.
     - [ ] **CRITIQUE** : Implémenter la rotation du Refresh Token (callback JWT).
     - [ ] Créer composant bouton `<LoginButton />`.
     - [ ] Tester connexion/déconnexion et persistance session.
@@ -41,19 +41,16 @@
 **Objectif :** L'expérience utilisateur finale (Glassmorphism & Vibe Echo).
 
 - [x] **Layout Shell**
-    - [x] Créer `components/layout/AppShell.tsx` (Sidebar/Nav simplifiée mobile-first).
-    - [x] Appliquer bg sombre + `globals.css` (Glassmorphism base classes).
-- [x] **Dashboard Home**
-    - [x] Afficher liste des playlists (Grid/List toggle).
-    - [x] Composant `PlaylistCard` avec image, titre, et hover effect glass.
-- [ ] **Shuffle UI Flow**
-    - [ ] Page détail playlist ou Modal de sélection.
-    - [ ] Bouton "Generate True Shuffle" avec état de loading (spinner/progress).
-    - [ ] Feedback visuel post-génération (succès).
-- [ ] **Feature B: Vibe Echo**
-    - [ ] Créer page `/vibe`.
-    - [ ] UI Sélecteur Tonalité/Période (24h, 7j, 30j).
-    - [ ] Logique `generateVibePlaylist` : Fetch Recent -> Get Recommendations -> Create Playlist.
+- [x] **Phase 1 : Authentification & Base**
+    - [x] Configurer NextAuth avec SpotifyProvider.
+    - [x] Créer le middleware de protection des routes.
+    - [x] Design System : Variables CSS (.glass-panel, .glass-card).
+
+- [ ] **Phase 2 : Vibe Explorer (Cancelled)**
+    - [x] ~~**Pivot Stratégique** : Abandon de `/recommendations` (404) pour `getArtistRelatedArtists`.~~
+    - [ ] ~~Algo "Vibe Explorer" (Sourcing Artistes -> Cousins -> Top Tracks).~~
+    - [ ] ~~Interface : Cartes 24h/7j/30j.ur Tonalité/Période (24h, 7j, 30j).~~
+    - [ ] ~~Logique `generateVibePlaylist` : Fetch Recent -> Get Recommendations -> Create Playlist.~~
 
 ## Phase 3: Polish & UX
 **Objectif :** Finitions pour effet "Waw".

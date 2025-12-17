@@ -17,7 +17,7 @@ NanoSpotify est une "Companion App" utilitaire conçue pour combler les lacunes 
 
 ### API & Données
 *   **Provider** : Spotify Web API exclusive (REST).
-*   **Authentification** : OAuth 2.0 (Scopes: `user-read-private`, `user-read-email`, `playlist-read-private`, `playlist-modify-public`, `playlist-modify-private`, `user-read-recently-played`).
+*   **Authentification** : OAuth 2.0 (Scopes: `user-read-private`, `user-read-email`, `playlist-read-private`, `playlist-modify-public`, `playlist-modify-private`).
 
 ## 4. Fonctionnalités Clés (MVP)
 
@@ -29,13 +29,7 @@ Résoudre le problème de l'algorithme "pseudo-aléatoire" de Spotify.
     3.  L'algorithme (Fisher-Yates) mélange 100% des titres de manière purement aléatoire.
     4.  La playlist résultante est sauvegardée sur le compte Spotify de l'utilisateur.
 
-### Feature B : Vibe Echo (Priorité 2)
-Découverte basée sur l'historique récent.
-*   **Flow Utilisateur** :
-    1.  L'utilisateur choisit une fenêtre temporelle (24h, Semaine, Mois).
-    2.  L'application analyse les titres récemment écoutés (`user-read-recently-played`).
-    3.  L'application utilise les endpoints de Recommandations de Spotify pour trouver des titres similaires.
-    4.  Une nouvelle playlist "Vibe Echo" est générée.
+
 
 ## 5. Design & Identité
 *   **Style** : Futuriste / Glassmorphism.

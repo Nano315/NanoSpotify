@@ -14,7 +14,6 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   const navItems = [
     { label: "Bibliothèque", icon: Music, href: "/" },
-    { label: "Vibe Echo", icon: Radio, href: "/vibe" },
   ];
 
   return (
