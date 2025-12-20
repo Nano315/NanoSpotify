@@ -17,14 +17,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "NanoSpotify | True Shuffle for Spotify",
+  title: "TrueShuffle | True Shuffle for Spotify",
   description: "Redécouvrez votre musique. Générez des playlists 100% aléatoires sans l'algorithme répétitif de Spotify. Simple, mathématique, efficace.",
-  authors: [{ name: "NanoSpotify Team" }],
+  authors: [{ name: "TrueShuffle Team" }],
   icons: {
     icon: "/favicon.ico",
   },
   openGraph: {
-    title: "NanoSpotify",
+    title: "TrueShuffle",
     description: "Redécouvrez votre musique. Générez des playlists 100% aléatoires.",
     type: "website",
   },

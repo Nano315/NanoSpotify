@@ -1,4 +1,4 @@
-# Implementation Plan (TODO) - NanoSpotify
+# Implementation Plan (TODO) - TrueShuffle
 
 ## Phase 0: Setup & Auth
 **Objectif :** Base saine, sécurisée et connectée à Spotify.

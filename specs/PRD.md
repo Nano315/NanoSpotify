@@ -1,7 +1,7 @@
-# Product Requirements Document (PRD) - NanoSpotify
+# Product Requirements Document (PRD) - TrueShuffle
 
 ## 1. Vision & Objectif
-NanoSpotify est une "Companion App" utilitaire conçue pour combler les lacunes de l'application officielle Spotify, en particulier la gestion de l'aléatoire.
+TrueShuffle est une "Companion App" utilitaire conçue pour combler les lacunes de l'application officielle Spotify, en particulier la gestion de l'aléatoire.
 *   **Core Value** : Offrir un "Vrai Aléatoire" (True Shuffle) via la génération de playlists statiques mathématiquement mélangées.
 *   **Approche** : Outil de gestion de bibliothèque et de découverte, pas de remplacement du lecteur audio.
 

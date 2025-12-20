@@ -1,4 +1,4 @@
-# Technical Specifications (TECH_SPEC) - NanoSpotify
+# Technical Specifications (TECH_SPEC) - TrueShuffle
 
 ## 1. Stack Technique
 Pour garantir une application moderne, performante et "Production-Ready", nous avons sélectionné la stack suivante :

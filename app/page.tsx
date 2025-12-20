@@ -8,7 +8,7 @@ export default async function Home() {
     <main className="flex min-h-screen flex-col items-center p-4">
       <div className="w-full max-w-7xl pt-8 pb-12 text-center md:text-left">
           <h1 className="text-4xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white to-white/50 md:text-6xl">
-            NanoSpotify
+            TrueShuffle
           </h1>
           <p className="mt-2 text-lg text-white/40">Le compagnon minimaliste pour votre musique.</p>
       </div>

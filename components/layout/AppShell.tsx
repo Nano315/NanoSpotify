@@ -25,7 +25,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-500 shadow-[0_0_15px_rgba(30,215,96,0.3)]">
               <Shuffle className="h-5 w-5 text-black" />
             </div>
-            <span className="text-lg font-bold tracking-tight">NanoSpotify</span>
+            <span className="text-lg font-bold tracking-tight">TrueShuffle</span>
           </div>
 
           {session?.user && (
