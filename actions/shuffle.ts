@@ -47,7 +47,7 @@ export async function createShufflePlaylist(sourcePlaylistId: string, sourceName
 
   try {
     // 1. Determine Target Name
-    const suffix = " - Alter";
+    const suffix = " - Shuffle";
     const targetName = sourceName.endsWith(suffix) ? sourceName : `${sourceName}${suffix}`;
 
     // 2. Fetch ALL tracks

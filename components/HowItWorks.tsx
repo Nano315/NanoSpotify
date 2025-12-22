@@ -23,7 +23,7 @@ export default function HowItWorks() {
     {
       icon: Disc,
       title: "Retrouver",
-      description: "Ouvre Spotify. Une nouvelle playlist [Nom] - Alter a été créée.",
+      description: "Ouvre Spotify. Une nouvelle playlist [Nom] - Shuffle a été créée dans ta bibliothèque.",
     },
     {
       icon: Play,
