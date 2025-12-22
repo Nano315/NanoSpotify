@@ -1,4 +1,5 @@
 import LoginButton from "@/components/LoginButton";
+import HowItWorks from "@/components/HowItWorks";
 import { getUserPlaylists } from "@/actions/spotify";
 import PlaylistGrid from "@/components/PlaylistGrid";
 
@@ -12,6 +13,9 @@ export default async function Home() {
           </h1>
           <p className="mt-2 text-lg text-white/40">Le compagnon minimaliste pour votre musique.</p>
       </div>
+      
+      <HowItWorks />
+
       <div className="mt-8 w-full">
         {playlists.length > 0 ? (
             <>
