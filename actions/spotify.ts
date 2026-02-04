@@ -19,7 +19,7 @@ export async function getUserPlaylists() {
     const likedSongsCount = likedSongsResponse.body.total;
 
     const playlists = playlistsResponse.body.items
-      .filter((playlist: any) => !playlist.name.endsWith(" - Alter"))
+      .filter((playlist: any) => !playlist.name.endsWith(" - Shuffle"))
       .map((playlist: any) => ({
         id: playlist.id,
         name: playlist.name,
