@@ -9,6 +9,7 @@ const SCOPES = [
   "playlist-modify-public",
   "playlist-modify-private",
   "user-library-read",
+  "user-top-read",
 ].join(" ");
 
 async function refreshAccessToken(token: JWT): Promise<JWT> {
