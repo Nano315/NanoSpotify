@@ -1,7 +1,7 @@
 "use client";
 
 import { useSession, signOut } from "next-auth/react";
-import { LogOut, User, Menu, X, Music, Radio, Shuffle } from "lucide-react";
+import { LogOut, User, Menu, X, Music, Radio, Shuffle, Trophy } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -14,6 +14,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   const navItems = [
     { label: "Bibliothèque", icon: Music, href: "/" },
+    { label: "Top 100", icon: Trophy, href: "/top-100" },
   ];
 
   return (
@@ -29,7 +30,23 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           </div>
 
           {session?.user && (
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 sm:gap-8">
+              <nav className="hidden sm:flex items-center gap-6">
+                {navItems.map((item) => {
+                  const isActive = pathname === item.href;
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={`text-sm font-medium transition-colors hover:text-white ${
+                        isActive ? "text-white" : "text-white/60"
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                })}
+              </nav>
               <div className="hidden items-center gap-3 sm:flex">
                 <span className="text-sm font-medium text-white/80">{session.user.name}</span>
                 {session.user.image ? (

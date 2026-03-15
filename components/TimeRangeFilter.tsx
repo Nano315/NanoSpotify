@@ -19,7 +19,7 @@ export default function TimeRangeFilter() {
   };
 
   return (
-    <div className="flex flex-wrap gap-2 pb-6">
+    <div className="flex flex-wrap gap-2">
       {ranges.map((range) => (
         <button
           key={range.value}
