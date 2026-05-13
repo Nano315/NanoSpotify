@@ -1,12 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Track } from "@/actions/top-tracks";
-
-const item = {
-  hidden: { opacity: 0, y: 10 },
-  visible: { opacity: 1, y: 0 }
-};
 
 export default function TrackList({ tracks }: { tracks: Track[] }) {
   return (
@@ -29,9 +23,11 @@ export default function TrackList({ tracks }: { tracks: Track[] }) {
           
           <div className="relative aspect-square w-12 overflow-hidden rounded bg-neutral-800">
             {track.image ? (
+              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={track.image}
                 alt={track.album}
+                loading="lazy"
                 className="h-full w-full object-cover"
               />
             ) : (
@@ -60,9 +56,11 @@ export default function TrackList({ tracks }: { tracks: Track[] }) {
           </div>
           
           <a
-            href={track.uri}
+            href={`https://open.spotify.com/track/${track.id}`}
+            target="_blank"
+            rel="noopener noreferrer"
             className="absolute inset-0 z-10"
-            aria-label={`Play ${track.name}`}
+            aria-label={`Ouvrir ${track.name} sur Spotify`}
           />
         </div>
       ))}

@@ -1,15 +1,12 @@
 "use client";
 
 import { useSession, signOut } from "next-auth/react";
-import { LogOut, User, Menu, X, Music, Radio, Shuffle, Trophy } from "lucide-react";
-import { useState } from "react";
+import { LogOut, User, Music, Shuffle, Trophy } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const { data: session } = useSession();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
   const navItems = [
@@ -47,22 +44,30 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                   );
                 })}
               </nav>
-              <div className="hidden items-center gap-3 sm:flex">
-                <span className="text-sm font-medium text-white/80">{session.user.name}</span>
+              <div className="flex items-center gap-3">
+                <span className="hidden sm:inline text-sm font-medium text-white/80">
+                  {session.user.name}
+                </span>
                 {session.user.image ? (
-                  <img src={session.user.image} alt={session.user.name || "User"} className="h-8 w-8 rounded-full ring-2 ring-white/10" />
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={session.user.image}
+                    alt={session.user.name || "User"}
+                    className="h-8 w-8 rounded-full ring-2 ring-white/10"
+                  />
                 ) : (
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10">
                     <User className="h-4 w-4" />
                   </div>
                 )}
-                <button onClick={() => signOut()} className="ml-2 rounded-full p-2 text-white/50 hover:bg-white/10 hover:text-white">
+                <button
+                  onClick={() => signOut()}
+                  className="rounded-full p-2 text-white/50 hover:bg-white/10 hover:text-white"
+                  aria-label="Se déconnecter"
+                >
                   <LogOut className="h-4 w-4" />
                 </button>
               </div>
-              <button className="sm:hidden" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-                {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-              </button>
             </div>
           )}
         </div>
@@ -73,10 +78,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         {children}
       </main>
 
-      {/* Mobile Nav / Desktop Sidebar Replacement for MVP */}
-      {/* For this MVP, we use a bottom bar on mobile and simple top nav for desktop implicitly via header above, 
-          but requested specific BottomNav. Let's add a fixed BottomNav for mobile. */}
-      
+      {/* Bottom navigation — mobile only */}
       {session && (
         <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/5 bg-[#050505]/90 pb-safe backdrop-blur-xl sm:hidden">
           <div className="flex justify-around p-4">

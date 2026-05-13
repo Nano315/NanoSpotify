@@ -28,8 +28,8 @@ export default function PlaylistGrid({ playlists }: { playlists: Playlist[] }) {
       animate="visible"
       className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
     >
-      {playlists.map((playlist, index) => (
-        <PlaylistCard key={playlist.id} playlist={playlist} index={index} />
+      {playlists.map((playlist) => (
+        <PlaylistCard key={playlist.id} playlist={playlist} />
       ))}
     </motion.div>
   );

@@ -1,6 +1,7 @@
 "use server";
 
 import { getSpotifyClient } from "@/lib/spotify-client";
+import { getAllUserPlaylists } from "@/lib/spotify-pagination";
 import { getTopTracks, Track } from "./top-tracks";
 
 export async function saveTopTracksAsPlaylist(timeRange: "long_term" | "medium_term" | "short_term"): Promise<{ success: boolean; message: string; playlistId?: string }> {
@@ -26,18 +27,15 @@ export async function saveTopTracksAsPlaylist(timeRange: "long_term" | "medium_t
 
     const trackUris = tracks.map(track => track.uri);
 
-    // 2. Fetch user's existing playlists to see if one matches the exact generated name
-    const playlistsResponse = await spotify.getUserPlaylists({ limit: 50 });
-    let targetPlaylistId = playlistsResponse.body.items.find((p: any) => p.name === playlistName)?.id;
+    // 2. Fetch every existing playlist to see if one matches the exact generated name
+    const playlists = await getAllUserPlaylists(spotify);
+    let targetPlaylistId = playlists.find((p) => p.name === playlistName)?.id;
 
     // 3. If it doesn't exist, create it
     if (!targetPlaylistId) {
-      const meResponse = await spotify.getMe();
-      const userId = meResponse.body.id;
-      
       const newPlaylist = await spotify.createPlaylist(playlistName, {
-         description: `Ma sélection des 100 titres les plus écoutés générée par TrueShuffle.`,
-         public: false 
+        description: `Ma sélection des 100 titres les plus écoutés générée par TrueShuffle.`,
+        public: false,
       });
       targetPlaylistId = newPlaylist.body.id;
     }
@@ -52,11 +50,11 @@ export async function saveTopTracksAsPlaylist(timeRange: "long_term" | "medium_t
         playlistId: targetPlaylistId
     };
 
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error saving playlist:", error);
-    return { 
-        success: false, 
-        message: "Une erreur est survenue lors de la sauvegarde." 
+    return {
+      success: false,
+      message: "Une erreur est survenue lors de la sauvegarde.",
     };
   }
 }

@@ -1,6 +1,7 @@
 "use server";
 
 import { getSpotifyClient } from "@/lib/spotify-client";
+import { getAllUserPlaylists } from "@/lib/spotify-pagination";
 
 export async function getUserPlaylists() {
   const spotify = await getSpotifyClient();
@@ -11,21 +12,28 @@ export async function getUserPlaylists() {
   }
 
   try {
-    // Fetch first 50 playlists
-    const playlistsResponse = await spotify.getUserPlaylists({ limit: 50 });
-    
-    // Fetch Liked Songs count
-    const likedSongsResponse = await spotify.getMySavedTracks({ limit: 1 });
+    // Paginate every playlist + grab Liked Songs count in parallel
+    const [items, likedSongsResponse] = await Promise.all([
+      getAllUserPlaylists(spotify),
+      spotify.getMySavedTracks({ limit: 1 }),
+    ]);
     const likedSongsCount = likedSongsResponse.body.total;
 
-    const playlists = playlistsResponse.body.items
-      .filter((playlist: any) => !playlist.name.endsWith(" - Shuffle"))
-      .map((playlist: any) => ({
-        id: playlist.id,
-        name: playlist.name,
-        image: playlist.images?.[0]?.url ?? null,
-        tracks: playlist.tracks.total,
-      }));
+    const playlists = items
+      .filter((playlist) => !playlist.name.endsWith(" - Shuffle"))
+      .map(
+        (playlist): {
+          id: string;
+          name: string;
+          image: string | null;
+          tracks: number;
+        } => ({
+          id: playlist.id,
+          name: playlist.name,
+          image: playlist.images?.[0]?.url ?? null,
+          tracks: playlist.tracks.total,
+        })
+      );
 
     // Add Liked Songs "Virtual" Playlist at the beginning
     if (likedSongsCount > 0) {

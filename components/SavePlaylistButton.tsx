@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useTransition } from "react";
-import { Plus, Download, Loader2 } from "lucide-react";
+import { useTransition } from "react";
+import { Download, Loader2 } from "lucide-react";
 import { saveTopTracksAsPlaylist } from "@/actions/save-playlist";
 import { toast } from "sonner";
 

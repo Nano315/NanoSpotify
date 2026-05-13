@@ -1,11 +1,11 @@
 import { DefaultSession } from "next-auth";
-import { JWT } from "next-auth/jwt";
 
 declare module "next-auth" {
   interface Session {
+    // SECURITY: accessToken / refreshToken are intentionally NOT exposed
+    // here. They're read server-side via getToken() in lib/spotify-client.ts
+    // so the browser bundle never sees them.
     user: {
-      accessToken?: string;
-      refreshToken?: string;
       username?: string;
     } & DefaultSession["user"];
     error?: string;
@@ -18,6 +18,6 @@ declare module "next-auth/jwt" {
     refreshToken?: string;
     expiresAt?: number;
     error?: string;
-    user?: any;
+    user?: { name?: string | null; email?: string | null; image?: string | null };
   }
 }

@@ -15,7 +15,7 @@ const variants = {
   visible: { opacity: 1, y: 0 },
 };
 
-export default function PlaylistCard({ playlist, index }: { playlist: Playlist; index: number }) {
+export default function PlaylistCard({ playlist }: { playlist: Playlist }) {
   return (
     <motion.div
       variants={variants}
@@ -25,9 +25,11 @@ export default function PlaylistCard({ playlist, index }: { playlist: Playlist; 
     >
       <div className="relative mb-4 aspect-square w-full overflow-hidden rounded-lg bg-neutral-900 shadow-xl">
         {playlist.image ? (
+          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={playlist.image}
             alt={playlist.name}
+            loading="lazy"
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
         ) : (

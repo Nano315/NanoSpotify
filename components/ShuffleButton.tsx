@@ -29,7 +29,7 @@ export default function ShuffleButton({ playlistId, sourceName }: ShuffleButtonP
       } else {
         toast.error("Erreur : " + result.message);
       }
-    } catch (e) {
+    } catch {
       toast.error("Une erreur est survenue.");
     } finally {
       setIsLoading(false);

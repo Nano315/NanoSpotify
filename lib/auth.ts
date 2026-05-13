@@ -1,6 +1,7 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+import { NextAuthOptions } from "next-auth";
 import SpotifyProvider from "next-auth/providers/spotify";
 import { JWT } from "next-auth/jwt";
+import { refreshSpotifyAccessToken } from "@/lib/spotify-refresh";
 
 const SCOPES = [
   "user-read-email",
@@ -13,46 +14,21 @@ const SCOPES = [
 ].join(" ");
 
 async function refreshAccessToken(token: JWT): Promise<JWT> {
-  try {
-    const url = "https://accounts.spotify.com/api/token";
-    
-    // Authorization header needs: Basic base64(client_id:client_secret)
-    const basicAuth = Buffer.from(
-      `${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`
-    ).toString("base64");
-
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        Authorization: `Basic ${basicAuth}`,
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: new URLSearchParams({
-        grant_type: "refresh_token",
-        refresh_token: token.refreshToken as string,
-      }),
-    });
-
-    const refreshedTokens = await response.json();
-
-    if (!response.ok) {
-        throw refreshedTokens;
-    }
-
-    return {
-      ...token,
-      accessToken: refreshedTokens.access_token,
-      expiresAt: Date.now() + refreshedTokens.expires_in * 1000,
-      // Fall back to old refresh token if Spotify doesn't send a new one
-      refreshToken: refreshedTokens.refresh_token ?? token.refreshToken, 
-    };
-  } catch (error) {
-    console.error("Error refreshing access token", error);
-    return {
-      ...token,
-      error: "RefreshAccessTokenError",
-    };
+  if (!token.refreshToken) {
+    return { ...token, error: "RefreshAccessTokenError" };
   }
+  const refreshed = await refreshSpotifyAccessToken(token.refreshToken);
+  if (!refreshed) {
+    return { ...token, error: "RefreshAccessTokenError" };
+  }
+  return {
+    ...token,
+    accessToken: refreshed.access_token,
+    expiresAt: Date.now() + refreshed.expires_in * 1000,
+    // Fall back to old refresh token if Spotify doesn't rotate it.
+    refreshToken: refreshed.refresh_token ?? token.refreshToken,
+    error: undefined,
+  };
 }
 
 export const authOptions: NextAuthOptions = {
@@ -89,22 +65,20 @@ export const authOptions: NextAuthOptions = {
       return refreshAccessToken(token);
     },
     async session({ session, token }) {
-      session.user.accessToken = token.accessToken;
-      session.user.refreshToken = token.refreshToken;
+      // SECURITY: never expose accessToken / refreshToken here. The
+      // session callback runs server-side but its output is shipped to
+      // every client via /api/auth/session. Server actions read the JWT
+      // directly via getSpotifyClient() instead.
       session.error = token.error;
-      
+
       if (token.user) {
-        session.user.name = (token.user as any).name;
-        session.user.image = (token.user as any).image;
-        session.user.email = (token.user as any).email;
+        session.user.name = token.user.name ?? null;
+        session.user.image = token.user.image ?? null;
+        session.user.email = token.user.email ?? null;
       }
-      
-      //console.log("Session User:", session.user);
+
       return session;
     },
-  },
-  pages: {
-    signIn: "/login",
   },
   session: {
     strategy: "jwt",

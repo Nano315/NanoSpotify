@@ -2,34 +2,47 @@
 
 import { getSpotifyClient } from "@/lib/spotify-client";
 import { fisherYatesShuffle } from "@/lib/algorithms/fisher-yates";
+import { getAllUserPlaylists } from "@/lib/spotify-pagination";
 
 // Helper for Robustness: Retry logic for 500/502 errors
+interface SpotifyApiError {
+  statusCode?: number;
+  body?: { error?: { status?: number } };
+  message?: string;
+  code?: string;
+}
+
 async function callSpotify<T>(
   operationName: string,
   operation: () => Promise<T>,
   retries = 3
 ): Promise<T> {
-  let lastError: any;
-  
+  let lastError: unknown;
+
   for (let i = 0; i < retries; i++) {
     try {
       if (i > 0) console.log(`Retry ${i}/${retries} for ${operationName}...`);
       return await operation();
-    } catch (error: any) {
+    } catch (error) {
       lastError = error;
       // If it's a server error (5xx) or network error, retry.
       // Spotify 'WebapiRegularError' usually has statusCode.
-      const status = error.statusCode || error.body?.error?.status;
-      
-      console.error(`Attempt ${i + 1} failed for ${operationName}:`, status, error.message);
+      const err = error as SpotifyApiError;
+      const status = err.statusCode ?? err.body?.error?.status;
 
-      if (status >= 500 || error.code === 'ECONNRESET' || error.message === 'Error while loading resource') {
+      console.error(`Attempt ${i + 1} failed for ${operationName}:`, status, err.message);
+
+      if (
+        (status !== undefined && status >= 500) ||
+        err.code === "ECONNRESET" ||
+        err.message === "Error while loading resource"
+      ) {
         // Backoff: 500ms, 1000ms, 2000ms
         const delay = 500 * Math.pow(2, i);
-        await new Promise(r => setTimeout(r, delay));
+        await new Promise((r) => setTimeout(r, delay));
         continue;
       }
-      
+
       // If it's 401/403/400/404, throw immediately (no point retrying)
       throw error;
     }
@@ -115,8 +128,10 @@ export async function createShufflePlaylist(sourcePlaylistId: string, sourceName
 
     // 4. Create/Update Target Playlist
     console.log("[Shuffle] Checking for existing target playlist...");
-    const userPlaylists = await callSpotify("getUserPlaylists", () => spotify.getUserPlaylists({ limit: 50 }));
-    const existingPlaylist = userPlaylists.body.items.find(p => p.name === targetName);
+    const userPlaylists = await getAllUserPlaylists(spotify, (op) =>
+      callSpotify("getUserPlaylists", op)
+    );
+    const existingPlaylist = userPlaylists.find((p) => p.name === targetName);
 
     let targetPlaylistId = existingPlaylist?.id;
 
@@ -159,8 +174,10 @@ export async function createShufflePlaylist(sourcePlaylistId: string, sourceName
 
     console.log("[Shuffle] Success!");
     return { success: true, playlistId: targetPlaylistId };
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error creating shuffle playlist:", error);
-    return { success: false, message: error.message || "Failed to create shuffle playlist." };
+    const message =
+      error instanceof Error ? error.message : "Failed to create shuffle playlist.";
+    return { success: false, message };
   }
 }
