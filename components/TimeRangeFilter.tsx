@@ -4,9 +4,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { clsx } from "clsx";
 
 const ranges = [
-  { label: "Depuis toujours", value: "long_term" },
-  { label: "6 derniers mois", value: "medium_term" },
-  { label: "4 dernières semaines", value: "short_term" },
+  { label: "Long terme", value: "long_term" },
+  { label: "~6 derniers mois", value: "medium_term" },
+  { label: "~4 dernières semaines", value: "short_term" },
 ];
 
 export default function TimeRangeFilter() {

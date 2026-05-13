@@ -14,7 +14,7 @@ export async function saveTopTracksAsPlaylist(timeRange: "long_term" | "medium_t
 
     // Determine target playlist name
     let playlistName = "Mon Top 100";
-    if (timeRange === "long_term") playlistName += " - Toujours";
+    if (timeRange === "long_term") playlistName += " - Long terme";
     else if (timeRange === "medium_term") playlistName += " - 6 Mois";
     else if (timeRange === "short_term") playlistName += " - 4 Semaines";
 
